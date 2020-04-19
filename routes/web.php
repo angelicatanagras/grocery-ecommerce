@@ -11,14 +11,19 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-\Illuminate\Support\Facades\Route::get('/home', 'HomeController@index')->name('home');
-\Illuminate\Support\Facades\Route::resource('customers','CustomerController');
-\Illuminate\Support\Facades\Route::resource('products','ProductController');
-\Illuminate\Support\Facades\Route::resource('index','DashboardController');
-\Illuminate\Support\Facades\Route::resource('SalesOrder','SalesOrderController');
+/* Routes inside needs authentication! */
+Route::group(['middleware' => ['auth']], function () {
+//    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('customers', 'CustomerController');
+    Route::resource('products', 'ProductController');
+    Route::resource('index', 'DashboardController');
+    Route::resource('SalesOrder', 'SalesOrderController');
+});
