@@ -37,6 +37,13 @@
                             <div class="col-md-6">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <strong>Order no:</strong>
+                                        <input type="number" name="orderNo" class="form-control" placeholder="Order-00"
+                                               disabled="">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
                                         <strong>Customer Name:</strong>
                                         <input type="text" name="name" class="form-control" placeholder="Name">
                                     </div>
@@ -55,7 +62,7 @@
                                         </div>
                                         <textarea class="form-control" style="height:100px" name="details"
                                                   placeholder="Delivery Address"></textarea>
-                                   </div>
+                                    </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -76,7 +83,7 @@
                                     </div>
                                     <div class="form-group">
                                         <strong>Price:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="P0.00">
+                                        <input type="number" name="name" class="form-control" placeholder="P0.00" disabled="">
                                     </div>
                                     <div class="form-group">
                                         <strong>Sub-total:</strong>
@@ -84,7 +91,7 @@
                                     </div>
                                     <div class="form-group">
                                         <strong>Total:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="P0.00">
+                                        <input type="number" name="name" class="form-control" placeholder="P0.00" disabled="">
                                     </div>
                                     <div class="form-group">
                                         <strong>Payment Type:</strong>
@@ -92,7 +99,7 @@
                                                 style="width: 100%;">
                                             <option>Cash on Delivery</option>
                                             <option>Online Banking</option>
-                                            <option>Gcash</option>
+                                            <option>Gcash</opt  ion>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -135,12 +142,12 @@
                                 <td>100.00</td>
                                 <td>
                                     <form action="http://127.0.0.1:8000/customers/3" method="POST">
-                                        <a class="btn btn-primary"
-                                           href="http://127.0.0.1:8000/customers/3/edit">Edit</a>
+                                        <a class="far fa-edit m-3"
+                                           href="http://127.0.0.1:8000/customers/3/edit"></a>
                                         <input type="hidden" name="_token"
                                                value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden" name="_method"  value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -153,10 +160,11 @@
                                 <td>300.00</td>
                                 <td>
                                     <form action="http://127.0.0.1:8000/customers/2" method="POST">
-                                        <a class="btn btn-primary" href="http://127.0.0.1:8000/customers/2/edit">Edit</a>
-                                        <input type="hidden" name="_token" value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden"  name="_method"  value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <a class="far fa-edit m-3" href="http://127.0.0.1:8000/customers/2/edit"></a>
+                                        <input type="hidden" name="_token"
+                                               value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -169,26 +177,27 @@
                                 <td>40.00</td>
                                 <td>
                                     <form action="http://127.0.0.1:8000/customers/1" method="POST">
-                                        <a class="btn btn-primary" href="http://127.0.0.1:8000/customers/1/edit">Edit</a>
-                                        <input type="hidden" name="_token"value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden"  name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <a class="far fa-edit m-3" href="http://127.0.0.1:8000/customers/1/edit"></a>
+                                        <input type="hidden" name="_token"
+                                               value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
                                     </form>
                                 </td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="3"> </td>
+                                <td colspan="3"></td>
                                 <td class="align-right"><i> VAT Amount : </i></td>
-                                <td id="total-vat" class="align-right"> 0.00 </td>
-                                <td> </td>
+                                <td id="total-vat" class="align-right"> 0.00</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="3"> </td>
+                                <td colspan="3"></td>
                                 <td class="align-right"><i> Total Gross Amount: </i></td>
-                                <td id="total-gross" class="align-right"> 0.00 </td>
-                                <td> </td>
+                                <td id="total-gross" class="align-right"> 0.00</td>
+                                <td></td>
                             </tr>
 
                             </tbody>
@@ -199,7 +208,8 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-right">
             <a href="{{ route('SalesOrder.index') }}">
-            <button type="submit" class="btn btn-primary">Confirm Order</button></a>
+                <button type="submit" class="btn btn-primary">Confirm Order</button>
+            </a>
 
         </div>
     </form>

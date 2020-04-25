@@ -33,15 +33,15 @@
                                 <td>
                                     <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
 
-                                        <a class="btn btn-info"
-                                           href="{{ route('customers.show',$customer->id) }}">Show</a>
+                                        <a class="far fa-eye m-3"
+                                           href="{{ route('customers.show',$customer->id) }}"></a>
 
-                                        <a class="btn btn-primary" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
+                                        <a class="far fa-edit m-3" href="{{ route('customers.edit',$customer->id) }}"></a>
 
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn"><i class="fas fa-user-minus"></i></button>
                                     </form>
                                 </td>
                             </tr>

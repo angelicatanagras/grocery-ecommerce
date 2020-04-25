@@ -6,7 +6,7 @@
                 <h2> Show Product</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('foods.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -20,8 +20,21 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Price:</strong>
+                {{ $product->price }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Details:</strong>
-                {{ $product->detail }}
+                {{ $product->details }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8">
+            <div class="form-group">
+                <strong>Product Type:</strong>
+             PRODUCT TYPE SELECTED HERE
+
             </div>
         </div>
     </div>

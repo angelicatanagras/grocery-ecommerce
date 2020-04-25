@@ -34,6 +34,12 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8">
                 <div class="form-group">
+                    <strong>Price:</strong>
+                    <input type="text" class="form-control" name="price" placeholder="0.00"></input>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8">
+                <div class="form-group">
                     <strong>Detail:</strong>
                     <textarea class="form-control" style="height:100px" name="details" placeholder="Detail"></textarea>
                 </div>

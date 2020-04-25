@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'details', 'product_type_id'
+        'name', 'price','details', 'product_type_id'
     ];
 
     //all fillables are data that need to create, update always

@@ -25,6 +25,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'price' => 'required',
             'details' => 'required',
             'product_type_id' => 'required'
         ]);
@@ -37,7 +38,8 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        $product_types = ProductType::all();
+        return view('products.show', compact('product','product_types'));
     }
 
     public function edit(Product $product)
@@ -51,7 +53,7 @@ class ProductController extends Controller
         //
         $request->validate([
             'name' => 'required',
-
+            'price'=> 'required',
             'product_type_id' => 'required'
         ]);
 

@@ -34,6 +34,12 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8">
                 <div class="form-group">
+                    <strong>Name:</strong>
+                    <input type="number" name="price" value="{{ $product->price }}" class="form-control" placeholder="0.00">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-8">
+                <div class="form-group">
                     <strong>Detail:</strong>
                     <textarea class="form-control" style="height:100px" name="details"
                               placeholder="Detail">{{ $product->details }}</textarea>
