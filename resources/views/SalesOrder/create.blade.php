@@ -1,4 +1,5 @@
 @extends('SalesOrder.layout')
+
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb pb-2">
@@ -44,8 +45,12 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Customer Name:</strong>
-                                        <input type="text" name="name" class="form-control" placeholder="Name">
+                                        <label for="name">Customer Name:</label>
+                                        <input list="customerNameList" class="typeahead form-control" id="name"
+                                               name="name"/>
+                                        <datalist id="customerNameList"></datalist>
+                                        <input type="hidden" name="customer" id="customerNameList-hidden">
+                                        {{ csrf_field() }}
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -55,43 +60,56 @@
                                                 <strong>Delivery Address:</strong>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <input type="checkbox" id="deliveryCheck" class="form-check-input"
+                                                       id="exampleCheck1">
                                                 <p><i>Same with Customer Address?</i></p>
                                             </div>
 
                                         </div>
                                         <textarea class="form-control" style="height:100px" name="details"
+                                                  id="deliveryAddress"
                                                   placeholder="Delivery Address"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Contact Number:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="+639">
+                                        <input type="text" name="name" id="contactNumber" class="form-control"
+                                               placeholder="+639">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Product Name:</strong>
-                                        <input type="name" name="name" class="form-control" placeholder="Name">
+                                        <label for="product-name">Product Name:</label>
+                                        <input list="productNameList" class="typeahead form-control" id="product-name"
+                                               name="product-name"/>
+                                        <datalist id="productNameList"></datalist>
+                                        <input type="hidden" name="customer" id="productNameList-hidden">
+                                        {{ csrf_field() }}
                                     </div>
                                     <div class="form-group">
                                         <strong>Quantity:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="1">
+                                        <input type="number" name="name" id="quantity" class="form-control"
+                                               placeholder="1">
                                     </div>
                                     <div class="form-group">
                                         <strong>Price:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="P0.00" disabled="">
+                                        <input type="number" name="name" id="price" class="form-control"
+                                               placeholder="P0.00"
+                                               disabled="">
                                     </div>
                                     <div class="form-group">
                                         <strong>Sub-total:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="P0.00">
+                                        <input type="number" name="name" id="subtotal" class="form-control"
+                                               placeholder="P0.00">
                                     </div>
                                     <div class="form-group">
                                         <strong>Total:</strong>
-                                        <input type="number" name="name" class="form-control" placeholder="P0.00" disabled="">
+                                        <input type="number" name="name" id="total" class="form-control"
+                                               placeholder="P0.00"
+                                               disabled="">
                                     </div>
                                     <div class="form-group">
                                         <strong>Payment Type:</strong>
@@ -99,7 +117,7 @@
                                                 style="width: 100%;">
                                             <option>Cash on Delivery</option>
                                             <option>Online Banking</option>
-                                            <option>Gcash</opt  ion>
+                                            <option>Gcash</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -151,40 +169,7 @@
                                     </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td>Milk</td>
-                                <td>3</td>
-                                <td>100.00</td>
-                                <td></td>
-                                <td>300.00</td>
-                                <td>
-                                    <form action="http://127.0.0.1:8000/customers/2" method="POST">
-                                        <a class="far fa-edit m-3" href="http://127.0.0.1:8000/customers/2/edit"></a>
-                                        <input type="hidden" name="_token"
-                                               value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Soap</td>
-                                <td>1</td>
-                                <td>40.00</td>
-                                <td></td>
-                                <td>40.00</td>
-                                <td>
-                                    <form action="http://127.0.0.1:8000/customers/1" method="POST">
-                                        <a class="far fa-edit m-3" href="http://127.0.0.1:8000/customers/1/edit"></a>
-                                        <input type="hidden" name="_token"
-                                               value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
+
                             <tr>
                                 <td></td>
                                 <td colspan="3"></td>
@@ -213,4 +198,123 @@
 
         </div>
     </form>
-@endsection
+
+@stop
+
+@section('scripts')
+    <script type="text/javascript">
+
+        /*
+         * For Customer textbox autocomplete
+         */
+        $(document).ready(function () {
+            $('#name').on('keyup', function () {
+                var query = $(this).val();
+                //console.log(query)
+                $.ajax({
+                    url: "{{ route('customers.search') }}",
+                    type: "GET",
+                    dataType: "json",
+                    data: {'name': query},
+                    success: function (data) {
+                        $('#customerNameList').empty();
+                        $.each(data, function (index) {
+                            $('#customerNameList').append("<option data-value='" + data[index].id + "'>" + data[index].name + "</option>");
+                        });
+                    }
+                })
+            });
+
+            $(document).on('change', 'input', function () {
+                var options = $('#customerNameList')[0].options;
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value == $(this).val()) {
+                        $('#customerNameList-hidden').val(options[i].dataset.value);
+                        var url = '/get_details/customer/' + customer_id;
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            dataType: "json",
+                            // data: {'id': customer_id},
+                            success: function (data) {
+                                $('#deliveryAddress').append(data.address);
+                            }
+                        })
+                        break;
+                    }
+                }
+            });
+
+            $("#deliveryCheck").change(function () {
+                var customer_id = $('#customerNameList-hidden').val();
+                if ($(this).is(':checked')) {
+                    var url = '/get_details/customer/' + customer_id;
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        dataType: "json",
+                        // data: {'id': customer_id},
+                        success: function (data) {
+                            $('#deliveryAddress').append(data.address);
+                            $("#contactNumber").val(data.contact_number).append(data);
+                            $('#contactNumber').focus();
+
+                        }
+                    })
+                } else if ($(this).is(':not(:checked)')) {
+                    $('#deliveryAddress').empty();
+                    $("#contactNumber").val(null); //null for the meantime
+                }
+
+            });
+        });
+
+
+        /*
+        * For PRODUCTS textbox autocomplete
+        * */
+        $(document).ready(function () {
+
+            $('#product-name').on('keyup', function () {
+                var query = $(this).val();
+                // console.log(query)
+                $.ajax({
+                    url: "{{ route('products.search') }}",
+                    type: "GET",
+                    dataType: "json",
+                    data: {'product-name': query},
+                    success: function (data) {
+                        $('#productNameList').empty();
+                        $.each(data, function (index) {
+                            $('#productNameList').append("<option data-value='" + data[index].id + "'>" + data[index].name + "</option>");
+                        });
+                        // $('#customerNameList').html(data);
+                    }
+                })
+            });
+
+            $(document).on('change', 'input', function () {
+                var options = $('#productNameList')[0].options;
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].value == $(this).val()) {
+                        $('#productNameList-hidden').val(options[i].dataset.value);
+                        var url = '/get_details/product/' + product_id;
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            dataType: "json",
+                            // data: {'id': customer_id},
+                            success: function (data) {
+                                $('#price').append(data.price);
+                                console.log(data)
+                            }
+                        })
+                        break;
+                    }
+                }
+            });
+        });
+
+    </script>
+
+@stop

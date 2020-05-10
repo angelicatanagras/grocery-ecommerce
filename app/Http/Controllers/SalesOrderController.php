@@ -11,23 +11,24 @@ class SalesOrderController extends Controller
 
     public function index()
     {
-        $customer = Customer::all();
-        $product = Product::all();
-        return view('SalesOrder.index', compact('customer','product_name'));
-    }
+        return view('SalesOrder.index');
 
+    }
 
     public function create()
     {
-        $customer = Customer::all();
-        $product = Product::all();
-        return view('SalesOrder.create', compact('customer','product_name'));
-    }
 
+        $product_types = Product::all();
+        return view('SalesOrder.create');
+
+
+
+
+    }
 
     public function store(Request $request)
     {
-        //
+
     }
 
 

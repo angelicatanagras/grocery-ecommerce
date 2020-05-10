@@ -7,11 +7,7 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $customers = Customer::latest()->paginate(5);
@@ -20,23 +16,12 @@ class CustomerController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
         return view('customers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
@@ -53,37 +38,18 @@ class CustomerController extends Controller
                         ->with('success','Customer created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
     public function show(Customer $customer)
     {
         //
         return view('customers.show',compact('customer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Customer $customer)
     {
         //
         return view('customers.edit',compact('customer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Customer $customer)
     {
         //
@@ -101,12 +67,6 @@ class CustomerController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Customer  $customer
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Customer $customer)
     {
         //
@@ -114,5 +74,27 @@ class CustomerController extends Controller
   
         return redirect()->route('customers.index')
                         ->with('success','Customer deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        if($request->ajax()) {
+            $data = Customer::where('name', 'LIKE', $request->name.'%')
+                ->get();
+        }
+
+        /*
+         * Fetch data from Customer Model
+         * Converts and returns as JSON
+         * */
+
+        return $data->toJson();
+    }
+
+    public function getDetails($id)
+    {
+        $data = Customer::find($id);
+        return $data->toJson();
+
     }
 }

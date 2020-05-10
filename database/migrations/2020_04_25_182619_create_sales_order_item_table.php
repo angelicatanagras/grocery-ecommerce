@@ -18,9 +18,9 @@ class CreateSalesOrderItemTable extends Migration
             $table->unsignedBigInteger('product_id')->unsigned();
             $table->string('product_name');
             $table->integer('quantity');
-            $table->float('price',8,2);
-            $table->float('subtotal',8,2);
-            $table->float('total',8,2);
+            $table->decimal('price',8,2);
+            $table->decimal('subtotal',8,2);
+            $table->decimal('total',8,2);
             $table->timestamps();
         });
     }

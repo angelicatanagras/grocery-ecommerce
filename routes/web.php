@@ -26,4 +26,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('products', 'ProductController');
     Route::resource('index', 'DashboardController');
     Route::resource('SalesOrder', 'SalesOrderController');
+
+    Route::get('search/customer', 'CustomerController@search')->name('customers.search');
+    Route::get('get_details/customer/{id}', 'CustomerController@getDetails')->name('customers.get_details');
+
+    Route::get('search/product', 'ProductController@search')->name('products.search');
+
 });
