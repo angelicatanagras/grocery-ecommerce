@@ -357,7 +357,7 @@
                     });
                     myOrders.myOrders.push(obj);
                 });
-                //  alert(JSON.stringify(myOrders));
+               
                 console.log(JSON.stringify(myOrders));
 
             });
