@@ -3,7 +3,6 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb pb-2">
-
             <div class="pull-left">
                 <ol class="breadcrumb float-sm-left">
                     <li class="breadcrumb-item"><a href="{{ route('SalesOrder.index') }}">Back to Home</a></li>
@@ -40,7 +39,7 @@
                                     <div class="form-group">
                                         <strong>Order no:</strong>
                                         <input type="number" name="orderNo" class="form-control" placeholder="Order-00"
-                                               disabled="">
+                                               disabled="" id="orderId">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -75,7 +74,7 @@
                                     <div class="form-group">
                                         <strong>Contact Number:</strong>
                                         <input type="text" name="name" id="contactNumber" class="form-control"
-                                               placeholder="+639">
+                                               placeholder="+639" value="">
                                     </div>
                                 </div>
                             </div>
@@ -103,13 +102,7 @@
                                     <div class="form-group">
                                         <strong>Sub-total:</strong>
                                         <input type="number" name="name" id="subtotal" class="form-control"
-                                               placeholder="P0.00">
-                                    </div>
-                                    <div class="form-group">
-                                        <strong>Total:</strong>
-                                        <input type="number" name="name" id="total" class="form-control"
-                                               placeholder="P0.00"
-                                               disabled="">
+                                               placeholder="P0.00"  step="0.01" disabled>
                                     </div>
                                     <div class="form-group">
                                         <strong>Payment Type:</strong>
@@ -121,9 +114,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary float-right">Save</button>
-                                        <button type="submit" class="btn btn-primary ">Add more products</button>
+
+                                        <button type="button" class="btn btn-primary" id="addMore">Add to orders</button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -141,51 +135,36 @@
                         <h3 class="card-title">Order Information</h3>
                     </div>
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-head-fixed text-nowrap">
+                        <table class="table table-head-fixed text-nowrap" id="ordertable">
+                            <thead>
+                                <tr>
+                                    <th>Line Number</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Subtotal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                             <tbody>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Product Name</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th></th>
-                                <th>Subtotal</th>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Rice</td>
-                                <td>2</td>
-                                <td>50.00</td>
-                                <td></td>
-                                <td>100.00</td>
-                                <td>
-                                    <form action="http://127.0.0.1:8000/customers/3" method="POST">
-                                        <a class="far fa-edit m-3"
-                                           href="http://127.0.0.1:8000/customers/3/edit"></a>
-                                        <input type="hidden" name="_token"
-                                               value="6GWAQPfOMLwUG9MjK1lzwrz8q5qrsX8vd6Izws7g">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td colspan="3"></td>
-                                <td class="align-right"><i> VAT Amount : </i></td>
-                                <td id="total-vat" class="align-right"> 0.00</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td colspan="3"></td>
-                                <td class="align-right"><i> Total Gross Amount: </i></td>
-                                <td id="total-gross" class="align-right"> 0.00</td>
-                                <td></td>
-                            </tr>
-
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3"></td>
+                                    <td class="align-right"><i> VAT Amount : </i></td>
+                                    <td id="total-vat" class="align-right"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="3"></td>
+                                    <td class="align-right">
+                                        <i>Total Gross Amount:</i></td>
+                                    <td id="total-gross"class="align-right"></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -193,7 +172,10 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-right">
             <a href="{{ route('SalesOrder.index') }}">
-                <button type="submit" class="btn btn-primary">Confirm Order</button>
+                <button type="submit" id="cancel" class="btn btn-primary">
+                    <a href=""></a>Cancel</button>
+                <button type="submit" id="confirm" class="btn btn-primary">Confirm Order</button>
+
             </a>
 
         </div>
@@ -202,11 +184,9 @@
 @stop
 
 @section('scripts')
-    <script type="text/javascript">
 
-        /*
-         * For Customer textbox autocomplete
-         */
+    <script type="text/javascript">
+        /* * For Customer textbox autocomplete*/
         $(document).ready(function () {
             $('#name').on('keyup', function () {
                 var query = $(this).val();
@@ -230,7 +210,7 @@
                 for (var i = 0; i < options.length; i++) {
                     if (options[i].value == $(this).val()) {
                         $('#customerNameList-hidden').val(options[i].dataset.value);
-                        var url = '/get_details/customer/' + customer_id;
+                        var url = '/get_details/customer/' + options[i].dataset.value;
                         $.ajax({
                             url: url,
                             type: "GET",
@@ -238,6 +218,7 @@
                             // data: {'id': customer_id},
                             success: function (data) {
                                 $('#deliveryAddress').append(data.address);
+                                $("#contactNumber").val(data.contact_number).append(data);
                             }
                         })
                         break;
@@ -255,29 +236,24 @@
                         dataType: "json",
                         // data: {'id': customer_id},
                         success: function (data) {
+                            $('#deliveryAddress').empty();
                             $('#deliveryAddress').append(data.address);
                             $("#contactNumber").val(data.contact_number).append(data);
                             $('#contactNumber').focus();
-
                         }
                     })
                 } else if ($(this).is(':not(:checked)')) {
                     $('#deliveryAddress').empty();
                     $("#contactNumber").val(null); //null for the meantime
                 }
-
             });
         });
 
-
-        /*
-        * For PRODUCTS textbox autocomplete
-        * */
+        /** For PRODUCTS textbox autocomplete * */
         $(document).ready(function () {
 
             $('#product-name').on('keyup', function () {
                 var query = $(this).val();
-                // console.log(query)
                 $.ajax({
                     url: "{{ route('products.search') }}",
                     type: "GET",
@@ -287,33 +263,107 @@
                         $('#productNameList').empty();
                         $.each(data, function (index) {
                             $('#productNameList').append("<option data-value='" + data[index].id + "'>" + data[index].name + "</option>");
+                           //console.log(data[index].price);
                         });
-                        // $('#customerNameList').html(data);
+
                     }
                 })
             });
 
-            $(document).on('change', 'input', function () {
-                var options = $('#productNameList')[0].options;
-                for (var i = 0; i < options.length; i++) {
-                    if (options[i].value == $(this).val()) {
-                        $('#productNameList-hidden').val(options[i].dataset.value);
-                        var url = '/get_details/product/' + product_id;
+            $(document).on('change', 'input', function () { // DOCUMENT ON CHANGE INPUT NG DATA LIST
+                var options = $('#productNameList')[0].options; // GET ALL OPTIONS NA NILABAS NG PRODUCT LIST, BASED SA SEARCH
+                for (var i = 0; i < options.length; i++) { // LOOPS THROUGH ALL OPTIONS
+                    if (options[i].value == $(this).val()) { // IF YUNG OPTION VALUE IS NAG MATCH SA KUNG ANO YUNG SNELECT MO SA MOUSE MO
+                        $('#productNameList-hidden').val(options[i].dataset.value); // MAG SSTOP YUNG LOOP TAPOS KKUNIN MO YUNG THIS.VAL OR OPTIONS.DATASET VALUE, IISA LANG YON
+                        var url = '/get_details/product/' + options[i].dataset.value; // IPASA MO YUNG ID SA AJAX MO PARA MAKUHA DATA
                         $.ajax({
                             url: url,
                             type: "GET",
                             dataType: "json",
-                            // data: {'id': customer_id},
-                            success: function (data) {
-                                $('#price').append(data.price);
-                                console.log(data)
+                            success: function (data) { // UPON SUCCESS KUNIN MO LANG YUNG OBJECT
+                              //console.log(data);
+                                $("#price").val(data.price); // THROUGH CONTROLLER MALALAMAN MO NAMAN KUNG ARRAY PINAPASA MO O IISANG OBJECT LANG E, SO IN THIS CASE, PRODUCT DETAIL LANG NG SPECIFIC, SO MEANING PWEDE NA AGAD DATA.VALUE
+                                $("#quantity").val(1);
+                                $("#subtotal").val(data.price);
                             }
                         })
                         break;
                     }
                 }
             });
+
+            $('#quantity').on('input', function() {
+              var quantity = $('#quantity').val(),
+                  price = $('#price').val();
+                $("#subtotal").val((Math.round((quantity * price) * 100) / 100).toFixed(2));
+            });
+
         });
+
+        var linenumber = 0;
+        var all_subtotal = 0;
+
+        //on click add more products
+        $(document).ready(function(){
+            $('#addMore').click(function(){
+                //alert('test');
+                var productName = $('#product-name').val(),
+                    quantity = $('#quantity').val(),
+                    price = $('#price').val(),
+                    subtotal = $('#subtotal').val();
+                    //console.log(productName, quantity, price, subtotal);
+                linenumber ++;
+
+                var action_button = `
+                    <form action="" method="POST">
+                    <a class="far fa-edit m-3" href=""></a>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                `;
+                $("#ordertable tbody").append("<tr>" +
+                    "<td>"+linenumber+ "</td>" +
+                    "<td>" +productName+ "</td>" +
+                    "<td>" +quantity+ "</td>" +
+                    "<td>" +price+ "</td>" +
+                    "<td>" +subtotal+ "</td>" +
+                    "<td>" +action_button+ "</td>" +
+                    "</tr>");
+
+                var total = all_subtotal += Number(subtotal);  // lahat ng items
+                var vat = (total * 0.12);  //total items * .12
+                var total_gross = 0; //total items + vat
+                total_gross = Number(total + vat);
+                $('#total-vat').text(vat);
+                $('#total-gross').text(parseFloat(total_gross));
+
+
+            });
+
+            $('#confirm').click(function(){
+                $('input').each(function() {
+                    if(!$(this).val()){
+                       // alert('Some fields are empty');
+                        return false;
+                    }
+                });
+                //table to json
+                var myOrders = { myOrders: [] };
+                var $th = $('#ordertable th');
+                $('#ordertable tbody tr').each(function(i, tr){
+                    var obj = {}, $tds = $(tr).find('td');
+                    $th.each(function(index, th){
+                        obj[$(th).text()] = $tds.eq(index).text();
+                    });
+                    myOrders.myOrders.push(obj);
+                });
+                //  alert(JSON.stringify(myOrders));
+                console.log(JSON.stringify(myOrders));
+
+            });
+        });
+
+
 
     </script>
 

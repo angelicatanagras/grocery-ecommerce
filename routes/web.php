@@ -31,5 +31,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('get_details/customer/{id}', 'CustomerController@getDetails')->name('customers.get_details');
 
     Route::get('search/product', 'ProductController@search')->name('products.search');
+    Route::get('get_details/product/{id}', 'ProductController@getDetails')->name('product.get_details');
 
 });

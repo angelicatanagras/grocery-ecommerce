@@ -22,27 +22,6 @@ class ProductController extends Controller
         return view('products.create', compact('product_types'));
     }
 
-    public function search (Request $request)
-    {
-        if($request->ajax()) {
-            $data = Product::where('name', 'LIKE', $request->name.'%')
-                ->get();
-        }
-        /*
-         * Fetch data from Customer Model
-         * Converts and returns as JSON
-         * */
-
-        return $data->toJson();
-    }
-
-    public function getDetails($id)
-    {
-        $data = Product::find($id);
-        return $data->toJson();
-
-    }
-
 
     public function store(Request $request)
     {
@@ -93,4 +72,25 @@ class ProductController extends Controller
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
     }
+    public function search (Request $request)
+    {
+        if($request->ajax()) {
+            $data = Product::where('name', 'LIKE', $request->name.'%')
+                ->get();
+        }
+        /*
+         * Fetch data from Customer Model
+         * Converts and returns as JSON
+         * */
+
+        return $data->toJson();
+    }
+
+    public function getDetails($id)
+    {
+        $data = Product::find($id);
+        return $data->toJson();
+
+    }
+
 }
